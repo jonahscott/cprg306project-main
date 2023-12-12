@@ -1,3 +1,4 @@
+// pages/index.js
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -44,7 +45,7 @@ export default function Home() {
 
         <div className="flex justify-center mb-8">
           <Image
-            src="/images/money-bag.png" 
+            src="/images/money-bag.png"
             alt="FinanceTrack Logo"
             width={200}
             height={200}
@@ -52,8 +53,27 @@ export default function Home() {
         </div>
 
         <p className="text-md italic text-gray-200">
-          "{quote}"
+          &quot;{quote}&quot;
         </p>
+
+        {/* Mock Example Summary Report */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 md:p-8 lg:p-10 mt-12">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+            Mock Example Summary Report
+          </h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-gray-700 dark:text-gray-300">
+              <p><strong>Category</strong></p>
+              <p>Entertainment</p>
+              <p>Bills</p>
+            </div>
+            <div className="text-gray-700 dark:text-gray-300">
+              <p><strong>Total Expenses</strong></p>
+              <p>$500</p>
+              <p>$1,000</p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

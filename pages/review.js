@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import Link from 'next/link';
 
-export default function Review({ formData }) {
+export default function Review() {
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    // Fetch or load your form data here
+    // Replace this with actual data fetching logic
+    const fetchData = async () => {
+      try {
+        // Simulate data fetching (replace with your API call)
+        const response = await fetch('/api/getFormData');
+        if (response.ok) {
+          const data = await response.json();
+          setFormData(data);
+        } else {
+          console.error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // Prepare chart data based on formData
   const categories = ['Bills', 'Food', 'Transport', 'Entertainment', 'Misc'];
   const categoryData = categories.map(category => {
@@ -48,8 +71,35 @@ export default function Review({ formData }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-teal-300 dark:from-blue-800 dark:to-teal-600">
-      {/* Navigation code */}
-      
+      <nav className="bg-white dark:bg-gray-800 shadow">
+        <div className="container mx-auto px-6 py-3">
+          <div className="flex justify-between items-center">
+            <Link legacyBehavior href="/">
+              <a className="text-xl font-semibold text-gray-700 dark:text-white">
+                FinanceTrack
+              </a>
+            </Link>
+            <div className="flex space-x-4">
+              <Link legacyBehavior href="/review">
+                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  Review Expenses
+                </a>
+              </Link>
+              <Link legacyBehavior href="/fill-form">
+                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  Fill Form
+                </a>
+              </Link>
+              <Link legacyBehavior href="/account">
+                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  Account
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <main className="container mx-auto px-6 py-8">
         <h1 className="text-4xl font-bold text-white text-center mb-8">
           Expense Review
