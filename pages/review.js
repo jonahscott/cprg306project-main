@@ -1,14 +1,24 @@
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import Link from 'next/link';
 
-export default function Review() {
+export default function Review({ formData }) {
+  // Prepare chart data based on formData
+  const categories = ['Bills', 'Food', 'Transport', 'Entertainment', 'Misc'];
+  const categoryData = categories.map(category => {
+    const total = formData
+      .filter(item => item.category === category)
+      .reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
+    return total;
+  });
+
   const data = {
-    labels: ['Bills', 'Food', 'Transport', 'Entertainment', 'Misc'],
+    labels: categories,
     datasets: [
       {
         label: 'Expenses by Category',
-        data: [1000, 250, 50, 75, 62], 
+        data: categoryData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',
@@ -38,30 +48,8 @@ export default function Review() {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-teal-300 dark:from-blue-800 dark:to-teal-600">
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-6 py-3">
-          <div className="flex justify-between items-center">
-            <Link legacyBehavior href="/">
-              <a className="text-xl font-semibold text-gray-700 dark:text-white">
-                FinanceTrack
-              </a>
-            </Link>
-            <div className="flex space-x-4">
-              <Link legacyBehavior href="/review">
-                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                  Review Expenses
-                </a>
-              </Link>
-              <Link legacyBehavior href="/fill-form">
-                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                  Fill Form
-                </a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      {/* Navigation code */}
+      
       <main className="container mx-auto px-6 py-8">
         <h1 className="text-4xl font-bold text-white text-center mb-8">
           Expense Review

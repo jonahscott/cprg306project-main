@@ -1,16 +1,33 @@
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function FillForm() {
+  const [formData, setFormData] = useState({
+    amount: '',
+    category: '',
+    date: ''
+  });
+  const [submittedData, setSubmittedData] = useState([]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData([...submittedData, formData]);
+    setFormData({ amount: '', category: '', date: '' }); // Reset form after submission
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-teal-300 dark:from-blue-800 dark:to-teal-600">
       <nav className="bg-white dark:bg-gray-800 shadow">
         <div className="container mx-auto px-6 py-3">
           <div className="flex justify-between items-center">
-            <Link legacyBehavior href="/">
-              <a className="text-xl font-semibold text-gray-700 dark:text-white">
-                FinanceTrack
-              </a>
-            </Link>
+            <div className="text-xl font-semibold text-gray-700 dark:text-white">
+              FinanceTrack
+            </div>
             <div className="flex space-x-4">
               <Link legacyBehavior href="/review">
                 <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
@@ -20,6 +37,11 @@ export default function FillForm() {
               <Link legacyBehavior href="/fill-form">
                 <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   Fill Form
+                </a>
+              </Link>
+              <Link legacyBehavior href="/account">
+                <a className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  Account
                 </a>
               </Link>
             </div>
@@ -32,7 +54,7 @@ export default function FillForm() {
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white text-center mb-4">
             Expense Entry Form
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="amount" className="block text-sm text-gray-600 dark:text-gray-200">
                 Amount
@@ -42,7 +64,9 @@ export default function FillForm() {
                 name="amount"
                 id="amount"
                 placeholder="Amount in USD"
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.amount}
+                onChange={handleChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               />
             </div>
 
@@ -53,8 +77,11 @@ export default function FillForm() {
               <select
                 name="category"
                 id="category"
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               >
+                <option value="">Select Category</option>
                 <option value="bills">Bills</option>
                 <option value="food">Food</option>
                 <option value="transport">Transport</option>
@@ -71,7 +98,9 @@ export default function FillForm() {
                 type="date"
                 name="date"
                 id="date"
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={formData.date}
+                onChange={handleChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               />
             </div>
 
@@ -79,6 +108,20 @@ export default function FillForm() {
               Submit Expense
             </button>
           </form>
+
+          {/* Display submitted data */}
+          {submittedData.length > 0 && (
+            <div className="mt-6">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Submitted Expenses:</h2>
+              <ul>
+                {submittedData.map((data, index) => (
+                  <li key={index} className="text-gray-600 dark:text-gray-200 mt-2">
+                    {`Amount: ${data.amount}, Category: ${data.category}, Date: ${data.date}`}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </main>
     </div>
