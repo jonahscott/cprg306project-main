@@ -17,7 +17,7 @@ export default function FillForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmittedData([...submittedData, formData]);
-    setFormData({ amount: '', category: '', date: '' }); // Reset form after submission
+    setFormData({ amount: '', category: '', date: '' }); 
   };
 
   return (

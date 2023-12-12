@@ -7,11 +7,8 @@ export default function Review() {
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
-    // Fetch or load your form data here
-    // Replace this with actual data fetching logic
     const fetchData = async () => {
       try {
-        // Simulate data fetching (replace with your API call)
         const response = await fetch('/api/getFormData');
         if (response.ok) {
           const data = await response.json();
@@ -27,7 +24,6 @@ export default function Review() {
     fetchData();
   }, []);
 
-  // Prepare chart data based on formData
   const categories = ['Bills', 'Food', 'Transport', 'Entertainment', 'Misc'];
   const categoryData = categories.map(category => {
     const total = formData

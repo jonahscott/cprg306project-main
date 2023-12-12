@@ -1,4 +1,3 @@
-// pages/index.js
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -56,7 +55,6 @@ export default function Home() {
           &quot;{quote}&quot;
         </p>
 
-        {/* Mock Example Summary Report */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 md:p-8 lg:p-10 mt-12">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
             Mock Example Summary Report
