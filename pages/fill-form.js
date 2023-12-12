@@ -109,7 +109,6 @@ export default function FillForm() {
             </button>
           </form>
 
-          {/* Display submitted data */}
           {submittedData.length > 0 && (
             <div className="mt-6">
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Submitted Expenses:</h2>
